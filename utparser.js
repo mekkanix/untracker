@@ -12,7 +12,12 @@ for (const $link of $links) {
     if (untracker.isTrackedURL(linkUrl)) {
       e.preventDefault()
       const formattedUrl = untracker.untrackURL(linkUrl)
-      LOG(formattedUrl)
+      const linkTarget = $link.getAttribute('target')
+      if (linkTarget === '_blank') {
+        window.open(formattedUrl)
+      } else {
+        window.location.href = formattedUrl
+      }
     }      
   })
 }
