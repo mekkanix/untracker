@@ -1,6 +1,6 @@
 {
-  "manifest_version": 3,
   "name": "Untracker",
+  "manifest_version": 3,
   "description": "---",
   "version": "1.0.0",
   "action": {
@@ -9,8 +9,17 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
-      "js": ["utparser.js"]
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "js": [
+        "./Untracker.js",
+        "./utparser.js"
+      ]
     }
+  ],
+  "permissions": [
+    "declarativeNetRequest"
   ]
 }
