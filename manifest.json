@@ -1,7 +1,7 @@
 {
   "name": "Untracker",
   "manifest_version": 3,
-  "description": "---",
+  "description": "An ad-tracking blocker that removes user-related tracking informations from popular websites.",
   "version": "1.0.0",
   "action": {
     "default_title": "Untracker",
@@ -18,8 +18,5 @@
         "./utparser.js"
       ]
     }
-  ],
-  "permissions": [
-    "declarativeNetRequest"
   ]
 }
