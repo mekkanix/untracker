@@ -1,7 +1,3 @@
-function LOG(...msg) {
-  console.log('[UNTRACKER]', ...msg);
-}
-
 class Untracker {
   _parseUrlQuery (url) {
     const strQuery = url.substring(url.indexOf('?') + 1)
