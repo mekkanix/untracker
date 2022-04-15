@@ -18,8 +18,7 @@
     {
       "matches": [
         "https://*/*",
-        "http://*/*",
-        "file:///*"
+        "http://*/*"
       ],
       "js": [
         "./Untracker.js",
