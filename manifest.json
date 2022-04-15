@@ -3,6 +3,11 @@
   "manifest_version": 3,
   "description": "Untracker removes targeted ad-related informations from visited websites.",
   "version": "1.0.0",
+  "icons": {
+    "16": "./img/icns/logo-16.png",
+    "48": "./img/icns/logo-48.png",
+   "128": "./img/icns/logo-128.png"
+  },
   "action": {
     "default_title": "Untracker",
     "default_popup": "popup.html"
