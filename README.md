@@ -8,8 +8,8 @@ Untracker removes ad-tracking informations for you like URL parameters (`fbclid`
 
 Please refer to the official GitHub homepage for more informations.
 
-*Please note that the extension will be auto-activated on any websites you visit after installation.  
-More fine-grained control & configuration will be added in the very next releases.
+*Please note that the extension will be auto-activated on any websites you visit after installation.*  
+*More fine-grained control & configuration will be added in the very next releases.*
 
 ## Compatibility
 
