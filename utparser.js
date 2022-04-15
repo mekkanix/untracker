@@ -1,5 +1,6 @@
 const untracker = new Untracker()
 const $links = document.querySelectorAll('a')
+console.log('Untracker ready.');
 for (const $link of $links) {
   $link.addEventListener('click', function (e) {
     const linkUrl = $link.getAttribute('href')

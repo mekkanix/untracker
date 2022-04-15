@@ -23,17 +23,44 @@ class Untracker {
     return !!query.fbclid
   }
 
+  _isGoogleUTMTrackedURL (url) {
+    const q = this._parseUrlQuery(url)
+    const hasUTMSource = !!q.utm_source
+    const hasUTMCampaign = !!q.utm_campaign
+    const hasUTMMedium = !!q.utm_medium
+    const hasUTMTerm = !!q.utm_term
+    const hasUTMContent = !!q.utm_content
+    return hasUTMSource || hasUTMCampaign || hasUTMMedium || hasUTMTerm || hasUTMContent
+  }
+
+  _cleanURLQuery (url) {
+    const trackingParams = [
+      // FB
+      'fbclid',
+      // Google Analytics
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'utm_content',
+    ]
+    let query = this._parseUrlQuery(url)
+    for (const paramName of trackingParams) {
+      if (query[paramName]) {
+        delete query[paramName]
+      }
+    }
+    const fmtUrl = url.substring(0, url.indexOf('?'))
+    const hasQuery = !!Object.keys(query).length
+    return hasQuery ? `${fmtUrl}?${this._formatUrlQuery(query)}` : fmtUrl
+  }
+
   isTrackedURL (url) {
-    return this._isFBTrackedURL(url)
+    return this._isFBTrackedURL(url) || this._isGoogleUTMTrackedURL(url)
   }
 
   untrackURL (fullUrl) {
-    let query = this._parseUrlQuery(fullUrl)
-    if (query.fbclid) {
-      delete query.fbclid
-    }
-    const url = fullUrl.substring(0, fullUrl.indexOf('?'))
-    const hasQuery = !!Object.keys(query).length
-    return hasQuery ? `${url}?${this._formatUrlQuery(query)}` : url
+    const url = this._cleanURLQuery(fullUrl)
+    return url
   }
 }
