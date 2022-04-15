@@ -1,8 +1,10 @@
 {
   "name": "Untracker",
-  "manifest_version": 3,
-  "description": "Untracker removes targeted ad-related informations from visited websites.",
+  "description": "Remove ad-tracking informations on-the-fly while surfing on the Web.",
   "version": "1.0.0",
+  "author": "Mekkanix",
+  "homepage_url": "https://github.com/mekkanix/untracker",
+  "manifest_version": 3,
   "icons": {
     "16": "./img/icns/logo-16.png",
     "48": "./img/icns/logo-48.png",
