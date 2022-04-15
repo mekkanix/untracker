@@ -29,3 +29,7 @@ Find below the minimum required version for each webbrowser.
 [Note on the self-hosting advantage with newer versions here]
 
 [Quick installation instructions here]
+
+## Issues
+
+You can open a new issue in the [dedicated page](https://github.com/mekkanix/untracker/issues) if you encounter any problem using this extension.
