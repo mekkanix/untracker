@@ -6,8 +6,6 @@
 
 Untracker removes ad-tracking informations for you like URL parameters (`fbclid` params, `utm` params, ...) while surfing on the Web. It transparently updates your navigation flow by deleting tracking data on-the-fly, with no interruption of your navigation.
 
-Please refer to the official GitHub homepage for more informations.
-
 *Please note that the extension will be auto-activated on any websites you visit after installation.*  
 *More fine-grained control & configuration will be added in the very next releases.*
 
