@@ -1,10 +1,10 @@
 # <div align="center">![Untracker Logo](/img/icns/logo-32.png "Untracker Logo") Untracker</div>
 
-<div align="center">Remove ad-tracking informations on-the-fly while surfing on the Web.</div>
+<div align="center">Remove ad-tracking data on-the-fly while surfing on the Web.</div>
 
 ## Overview
 
-Untracker is a webbrowser extension that removes for you ad-tracking informations like URL parameters (`fbclid`, `utm` params, ...) while surfing on the Web.
+Untracker is a webbrowser extension that removes for you ad-tracking data like URL parameters (`fbclid`, `utm` params, ...) while surfing on the Web.
 
 ## Compatibility
 
