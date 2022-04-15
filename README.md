@@ -4,7 +4,7 @@
 
 ## Overview
 
-Untracker is a webbrowser extension that removes for your ad-tracking informations like URL parameters (`fbclid`, `utm` params, ...) while surfing on the Web.
+Untracker is a webbrowser extension that removes for you ad-tracking informations like URL parameters (`fbclid`, `utm` params, ...) while surfing on the Web.
 
 ## Compatibility
 
