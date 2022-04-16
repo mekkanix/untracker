@@ -20,10 +20,7 @@
         "https://*/*",
         "http://*/*"
       ],
-      "js": [
-        "./Untracker.js",
-        "./utparser.js"
-      ]
+      "js": ["./dist/Untracker.min.js"]
     }
   ]
 }

@@ -1,3 +1,5 @@
+import Untracker from './Untracker.js'
+
 const untracker = new Untracker()
 const $links = document.querySelectorAll('a')
 for (const $link of $links) {
