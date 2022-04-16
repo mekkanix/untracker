@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "license": "GPL-3.0",
   "scripts": {
-    "serve": "webpack serve --mode=production",
-    "build:dev": "webpack build --mode=production",
-    "build:prod": "webpack build --mode=production"
+    "serve": "nodemon server.js",
+    "build:dev": "webpack build --env compile-mode=development",
+    "build:prod": "webpack build --env compile-mode=production"
   },
   "main": "./dist/Untracker.min.js",
   "devDependencies": {
+    "express": "^4.17.3",
+    "node": "^17.7.2",
+    "nodemon": "^2.0.15",
+    "serve-index": "^1.9.1",
     "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "webpack-cli": "^4.9.2"
   }
 }

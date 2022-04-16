@@ -1,27 +1,21 @@
 const path = require('path')
 
 module.exports = (env, _) => {
+  // CLI args
+  const compileMode = env['compile-mode']
+  // Internal state
+  const minimizeCode = compileMode === 'production'
+
   const config = {
-    mode: env.mode,
-    devServer: {
-      static: {
-        directory: path.join(__dirname, 'public'),
-        serveIndex: true,
-      },
-      hot: false,
-      devMiddleware: {
-        writeToDisk: true,
-      },
-      compress: true,
-      port: 9000,
-    },
+    mode: 'production',
     entry: './src/utparser.js',
     output: {
       filename: 'Untracker.min.js',
       path: path.join(__dirname, 'dist'),
+      clean: true,
     },
     optimization: {
-      minimize: true,
+      minimize: minimizeCode,
     },
   }
   return config
