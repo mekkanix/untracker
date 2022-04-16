@@ -5,13 +5,18 @@ module.exports = (env, _) => {
   const compileMode = env['compile-mode']
   // Internal state
   const minimizeCode = compileMode === 'production'
+  // const bundleName = !minimizeCode ? 'Untracker.js' : 'Untracker.min.js'
 
   const config = {
     mode: 'production',
-    entry: './src/utparser.js',
+    entry: {
+      Untracker: './src/utparser.js',
+      popup: './src/popup.js',
+    },
     output: {
-      filename: 'Untracker.min.js',
+      filename: '[name].js',
       path: path.join(__dirname, 'dist'),
+      iife: false,
       clean: true,
     },
     optimization: {

@@ -1,5 +1,4 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
+/******/ "use strict";
 var __webpack_exports__ = {};
 
 ;// CONCATENATED MODULE: ./src/Untracker.js
@@ -90,5 +89,3 @@ for (const $link of $links) {
     }      
   })
 }
-/******/ })()
-;

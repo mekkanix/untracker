@@ -1,0 +1,44 @@
+.ut_popup {
+  min-width: 150px;
+}
+.ut_popup .ut_popup__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 10px;
+}
+.ut_popup .ut_popup__header__title {
+  margin-left: 5px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Settings */
+.ut_popup__settings__row {
+  display: flex;
+  align-items: center;
+  padding: 2px 5px;
+  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.ut_popup__settings__row.centered {
+  justify-content: center;
+}
+.ut_popup__settings__row .ut_popup__settings__icn {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0 5px 0 0;
+  width: 16px;
+}
+.ut_popup__settings__row .ut_popup__settings__text {
+  flex: 1 0 auto;
+  padding: 5px 10px 5px 0;
+}
+.ut_popup__settings__row.centered .ut_popup__settings__icn {
+  flex: 1 1 auto;
+}
+.ut_popup__settings__row.centered .ut_popup__settings__text {
+  flex: 1 1 auto;
+}
