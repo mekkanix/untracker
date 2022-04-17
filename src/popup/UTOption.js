@@ -1,11 +1,13 @@
 export default class UTOption {
+  // _port = null
   name = null
   $element = null
   $label = null
   labels = null
   defaultValue = null
   
-  constructor (name, $element, labels, defaultValue) {
+  constructor (/* port,  */name, $element, labels, defaultValue) {
+    // this._port = port
     this.name = name
     this.$element = $element
     this.labels = labels
@@ -23,6 +25,14 @@ export default class UTOption {
     this.$element.addEventListener('click', () => {
       this.defaultValue = this.$element.checked
       this.$label.innerHTML = this._getLabel()
+      const extMessage = {
+        scope: 'ut_option',
+        name: 'enable',
+        value: this.$element.checked,
+      }
+      chrome.runtime.sendMessage(chrome.runtime.id, extMessage, (response) => {
+        console.log(response);
+      })
     })
   }
 

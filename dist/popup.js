@@ -3,13 +3,15 @@ var __webpack_exports__ = {};
 
 ;// CONCATENATED MODULE: ./src/popup/UTOption.js
 class UTOption {
+  // _port = null
   name = null
   $element = null
   $label = null
   labels = null
   defaultValue = null
   
-  constructor (name, $element, labels, defaultValue) {
+  constructor (/* port,  */name, $element, labels, defaultValue) {
+    // this._port = port
     this.name = name
     this.$element = $element
     this.labels = labels
@@ -27,6 +29,14 @@ class UTOption {
     this.$element.addEventListener('click', () => {
       this.defaultValue = this.$element.checked
       this.$label.innerHTML = this._getLabel()
+      const extMessage = {
+        scope: 'ut_option',
+        name: 'enable',
+        value: this.$element.checked,
+      }
+      chrome.runtime.sendMessage(chrome.runtime.id, extMessage, (response) => {
+        console.log(response);
+      })
     })
   }
 
@@ -48,22 +58,13 @@ class UTOption {
 }
 ;// CONCATENATED MODULE: ./src/popup/UTLink.js
 class UTLink {
-  $element = null
-  label = null
   
-  constructor ($element, label) {
-    this.$element = $element
-    this.label = label
-  }
 }
 ;// CONCATENATED MODULE: ./src/popup/popup.js
 
 
 
-const port = chrome.runtime.connect(
-  chrome.runtime.id,
-  { name: 'popup', }
-)
+const port = chrome.runtime.connect(chrome.runtime.id)
 
 const itemsLabels = {
   enable: [
@@ -96,10 +97,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const utLink = new UTLink(itemName, $item, label)
         break
     }
-  //     // chrome.runtime.sendMessage(
-  //     //   chrome.runtime.id,
-        
-  //     // )
   })
 })
+
+console.log('[Untracker][popup] Ready.')
 

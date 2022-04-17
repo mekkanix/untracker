@@ -1,10 +1,7 @@
 import UTOption from "./UTOption.js"
 import UTLink from "./UTLink.js"
 
-const port = chrome.runtime.connect(
-  chrome.runtime.id,
-  { name: 'popup', }
-)
+const port = chrome.runtime.connect(chrome.runtime.id)
 
 const itemsLabels = {
   enable: [
@@ -37,9 +34,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const utLink = new UTLink(itemName, $item, label)
         break
     }
-  //     // chrome.runtime.sendMessage(
-  //     //   chrome.runtime.id,
-        
-  //     // )
   })
 })
+
+console.log('[Untracker][popup] Ready.')
