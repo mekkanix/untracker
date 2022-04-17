@@ -3,12 +3,26 @@ const port = chrome.runtime.connect(
   { name: 'popup', }
 )
 
-window.addEventListener('DOMContentLoaded', function () {
-  // Popup Settings
-  const $settings = document.querySelectorAll('[data-ut-settings-item]')
-  $settings.forEach(element => {
-    element.addEventListener('click', function (e) {
-      console.log(e, chrome);
+const optionsMap = {
+  enable: {
+
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Popup Options
+  const $options = document.querySelectorAll('[data-ut-option]')
+  $options.forEach($option => {
+    $option.addEventListener('click', (e) => {
+      if ($option.tagName) {
+        
+      }
     })
+  //     const value = $settingsBtn.getAttribute('data-ut-settings-value')
+  //     const fmtValue = JSON.parse(value)
+  //     // chrome.runtime.sendMessage(
+  //     //   chrome.runtime.id,
+        
+  //     // )
   })
 })
