@@ -11,7 +11,7 @@ module.exports = (env, _) => {
     mode: 'production',
     entry: {
       Untracker: './src/utparser.js',
-      popup: './src/popup.js',
+      popup: './src/popup/popup.js',
     },
     output: {
       filename: '[name].js',
