@@ -10,7 +10,7 @@ module.exports = (env, _) => {
   const config = {
     mode: 'production',
     entry: {
-      Untracker: './src/utparser.js',
+      Untracker: './src/content/utmain.js',
       popup: './src/popup/popup.js',
     },
     output: {

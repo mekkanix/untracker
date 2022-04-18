@@ -1,8 +1,8 @@
 /******/ "use strict";
 var __webpack_exports__ = {};
 
-;// CONCATENATED MODULE: ./src/Untracker.js
-class Untracker {
+;// CONCATENATED MODULE: ./src/content/UTQueryManager.js
+class UTQueryManager {
   _parseUrlQuery (url) {
     const strQuery = url.substring(url.indexOf('?') + 1)
     const objQuery = strQuery.split('&').reduce((params, param) => {
@@ -69,23 +69,82 @@ class Untracker {
   }
 }
 
-;// CONCATENATED MODULE: ./src/utparser.js
+;// CONCATENATED MODULE: ./src/content/UTContentManager.js
 
 
-const untracker = new Untracker()
-const $links = document.querySelectorAll('a')
-for (const $link of $links) {
-  $link.addEventListener('click', function (e) {
+class UTContentManager {
+  _queryManager = null
+  _links = []
+
+  constructor () {
+    this._queryManager = new UTQueryManager()
+    this._parseLinks()
+  }
+
+  _parseLinks () {
+    const $links = document.querySelectorAll('a')
+    for (const $link of $links) {
+      this._links.push({
+        $element: $link,
+        onClick: (e) => {
+          // wrapping handler here because we need one extra argument ($link) 
+          this._onLinkClick(e, $link)
+        },
+      })
+    }
+  }
+
+  _onLinkClick (e, $link) {
     const linkUrl = $link.getAttribute('href')
-    if (untracker.isTrackedURL(linkUrl)) {
+    if (this._queryManager.isTrackedURL(linkUrl)) {
       e.preventDefault()
-      const formattedUrl = untracker.untrackURL(linkUrl)
+      const formattedUrl = this._queryManager.untrackURL(linkUrl)
       const linkTarget = $link.getAttribute('target')
       if (linkTarget === '_blank') {
         window.open(formattedUrl)
       } else {
         window.location.href = formattedUrl
       }
-    }      
-  })
+    }
+  }
+
+  watch () {
+    for (const link of this._links) {
+      link.$element.addEventListener('click', link.onClick)
+    }
+  }
+
+  unwatch () {
+    for (const link of this._links) {
+      link.$element.removeEventListener('click', link.onClick)
+    }
+  }
 }
+;// CONCATENATED MODULE: ./src/content/utmain.js
+
+
+// Retrieve UT options from storage
+chrome.storage.sync.get(null, (items) => {
+  const enabled = items.ut_options.enable
+  const utContentManager = new UTContentManager()
+  if (enabled) {
+    utContentManager.watch()
+  }
+})
+// const untracker = new Untracker()
+// const $links = document.querySelectorAll('a')
+// for (const $link of $links) {
+//   $link.addEventListener('click', function (e) {
+//     const linkUrl = $link.getAttribute('href')
+//     if (untracker.isTrackedURL(linkUrl)) {
+//       e.preventDefault()
+//       const formattedUrl = untracker.untrackURL(linkUrl)
+//       const linkTarget = $link.getAttribute('target')
+//       if (linkTarget === '_blank') {
+//         window.open(formattedUrl)
+//       } else {
+//         window.location.href = formattedUrl
+//       }
+//     }      
+//   })
+// }
