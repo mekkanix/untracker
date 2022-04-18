@@ -26,5 +26,8 @@
       ],
       "js": ["./dist/Untracker.js"]
     }
+  ],
+  "permissions": [
+    "storage"
   ]
 }

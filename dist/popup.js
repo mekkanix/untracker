@@ -1,64 +1,84 @@
 /******/ "use strict";
 var __webpack_exports__ = {};
 
+;// CONCATENATED MODULE: ./src/popup/UTPopupManager.js
+class UTPopupManager {
+  _options = null
+
+  constructor () {
+
+  }
+
+  setOptions (options) {
+    this._options = options
+  }
+
+  getOptionValue (name) {
+    for (const [optName, optValue] of Object.entries(this._options)) {
+      if (optName === name) {
+        return optValue
+      }
+    }
+    return null
+  }
+
+  // Utility methods -------------------------
+  
+  isUTEnabled () {
+    return this._options.enable
+  }
+}
 ;// CONCATENATED MODULE: ./src/popup/UTOption.js
 class UTOption {
   // _port = null
   name = null
+  value = null
   $element = null
   $label = null
   labels = null
-  defaultValue = null
   
-  constructor (/* port,  */name, $element, labels, defaultValue) {
-    // this._port = port
+  constructor (name, value, $element, $label, labels) {
     this.name = name
+    this.value = value
     this.$element = $element
+    this.$label = $label
     this.labels = labels
-    this.defaultValue = defaultValue
-    this._computeDefaultValue()
+    this.value = value
+    this._initOptionElement()
+    this._computeLabel()
     this._initHandlers()
-    this._initLabel()
   }
 
-  _computeDefaultValue () {
-    this.$element.checked = this.defaultValue
+  _initOptionElement () {
+    this.$element.checked = this.value
+  }
+
+  _computeLabel () {
+    this.$label.innerHTML = this._getLabel()
   }
 
   _initHandlers () {
     this.$element.addEventListener('click', () => {
-      this.defaultValue = this.$element.checked
-      this.$label.innerHTML = this._getLabel()
       const extMessage = {
         scope: 'ut_option',
         name: 'enable',
         value: this.$element.checked,
       }
-      chrome.runtime.sendMessage(chrome.runtime.id, extMessage, (response) => {
-        console.log(response);
+      chrome.runtime.sendMessage(chrome.runtime.id, extMessage, (_) => {
+        this.value = this.$element.checked
+        this._computeLabel()
       })
     })
   }
 
-  _initLabel () {
-    const $optionRowBox = this.$element.parentElement.children.item(1)
-    const $optionText = $optionRowBox.children.item(1)
-    this.$label = $optionText
-    this.$label.innerHTML = this._getLabel()
-  }
-
   _getLabel () {
     for (const label of this.labels) {
-      if (label.value === this.defaultValue) {
+      if (label.value === this.value) {
         return label.text
       }
     }
     return null
   }
-}
-;// CONCATENATED MODULE: ./src/popup/UTLink.js
-class UTLink {
-  
 }
 ;// CONCATENATED MODULE: ./src/popup/popup.js
 
@@ -72,31 +92,25 @@ const itemsLabels = {
     { value: false, text: 'Disabled', },
   ],
 }
-const optionsDefaultValues = {
-  enable: true,
-}
+
+const popup = new UTPopupManager()
 
 window.addEventListener('DOMContentLoaded', () => {
-  // Popup Options
-  const $items = document.querySelectorAll('[data-ut-option]')
-  $items.forEach($item => {
-    const itemName = $item.getAttribute('data-ut-option')
-    switch ($item.tagName) {
-      case 'INPUT':
-        const itemType = $item.getAttribute('type')
-        const labels = itemsLabels[itemName]
-        const defaultValue = optionsDefaultValues[itemName]
-        switch (itemType) {
-          case 'checkbox':
-            const utOption = new UTOption(itemName, $item, labels, defaultValue)
-            break
-        }
-        break
-      case 'A':
-        const label = itemsLabels[itemName]
-        const utLink = new UTLink(itemName, $item, label)
-        break
-    }
+  // Retrieve UT options from storage
+  chrome.storage.sync.get('ut_options', (items) => {
+    popup.setOptions(items.ut_options)
+    // Init popup
+    // -- Option: Enable
+    const $optEnable = document.querySelector('[name="ut_option_enable"]')
+    const $optEnableLabel = document.querySelector('.ut_option__row__text')
+    const optEnableValue = popup.getOptionValue('enable')
+    const utOption = new UTOption(
+      'enable',
+      optEnableValue,
+      $optEnable,
+      $optEnableLabel,
+      itemsLabels.enable
+    )
   })
 })
 

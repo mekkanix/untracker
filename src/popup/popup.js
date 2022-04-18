@@ -1,5 +1,5 @@
-import UTOption from "./UTOption.js"
-import UTLink from "./UTLink.js"
+import UTPopupManager from './UTPopupManager.js'
+import UTOption from './UTOption.js'
 
 const port = chrome.runtime.connect(chrome.runtime.id)
 
@@ -9,31 +9,25 @@ const itemsLabels = {
     { value: false, text: 'Disabled', },
   ],
 }
-const optionsDefaultValues = {
-  enable: true,
-}
+
+const popup = new UTPopupManager()
 
 window.addEventListener('DOMContentLoaded', () => {
-  // Popup Options
-  const $items = document.querySelectorAll('[data-ut-option]')
-  $items.forEach($item => {
-    const itemName = $item.getAttribute('data-ut-option')
-    switch ($item.tagName) {
-      case 'INPUT':
-        const itemType = $item.getAttribute('type')
-        const labels = itemsLabels[itemName]
-        const defaultValue = optionsDefaultValues[itemName]
-        switch (itemType) {
-          case 'checkbox':
-            const utOption = new UTOption(itemName, $item, labels, defaultValue)
-            break
-        }
-        break
-      case 'A':
-        const label = itemsLabels[itemName]
-        const utLink = new UTLink(itemName, $item, label)
-        break
-    }
+  // Retrieve UT options from storage
+  chrome.storage.sync.get('ut_options', (items) => {
+    popup.setOptions(items.ut_options)
+    // Init popup
+    // -- Option: Enable
+    const $optEnable = document.querySelector('[name="ut_option_enable"]')
+    const $optEnableLabel = document.querySelector('.ut_option__row__text')
+    const optEnableValue = popup.getOptionValue('enable')
+    const utOption = new UTOption(
+      'enable',
+      optEnableValue,
+      $optEnable,
+      $optEnableLabel,
+      itemsLabels.enable
+    )
   })
 })
 
