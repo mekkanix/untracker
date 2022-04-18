@@ -25,13 +25,12 @@ Find below the minimum required version for each webbrowser.
 
 #### Method 1: Chrome Web Store
 
-[Quick installation instructions here]
+Latest stable version is available in the [Chrome Web Store](https://chrome.google.com/webstore/detail/untracker/ojbkcodfnlmakjkgknjngjkmmcfpmkdc).  
+Install it through classic method using the "**Add to Chrome**" button.
 
 #### Method 2: self-hosting
 
-[Note on the self-hosting advantage with newer versions here]
-
-[Quick installation instructions here]
+Notes on the self-hosting method will be added later.
 
 ## Issues
 
