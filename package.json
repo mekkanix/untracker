@@ -8,6 +8,9 @@
     "build:prod": "webpack build --env compile-mode=production"
   },
   "main": "./dist/Untracker.js",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "express": "^4.17.3",
     "node": "^17.7.2",

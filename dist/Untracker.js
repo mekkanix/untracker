@@ -73,12 +73,15 @@ class UTQueryManager {
 
 
 class UTContentManager {
+  _enabled = false
   _queryManager = null
   _links = []
 
-  constructor () {
+  constructor (enabled = true) {
+    this._enabled = enabled
     this._queryManager = new UTQueryManager()
     this._parseLinks()
+    this._handleLiveUpdates()
   }
 
   _parseLinks () {
@@ -91,6 +94,29 @@ class UTContentManager {
           this._onLinkClick(e, $link)
         },
       })
+    }
+  }
+
+  _handleLiveUpdates () {
+    chrome.storage.onChanged.addListener((changes, type) => {
+      if (type === 'sync') {
+        const stgOpts = changes.ut_options
+        // watch for 'enable' option update
+        if (stgOpts && stgOpts.oldValue.enable !== stgOpts.newValue.enable) {
+          this._enabled = stgOpts.newValue.enable
+          this._updateInternalState()
+        }
+      }
+    })
+  }
+
+  _updateInternalState () {
+    for (const link of this._links) {
+      if (this._enabled) {
+        link.$element.addEventListener('click', link.onClick)
+      } else {
+        link.$element.removeEventListener('click', link.onClick)
+      }
     }
   }
 
@@ -108,16 +134,8 @@ class UTContentManager {
     }
   }
 
-  watch () {
-    for (const link of this._links) {
-      link.$element.addEventListener('click', link.onClick)
-    }
-  }
-
-  unwatch () {
-    for (const link of this._links) {
-      link.$element.removeEventListener('click', link.onClick)
-    }
+  start () {
+    this._updateInternalState()
   }
 }
 ;// CONCATENATED MODULE: ./src/content/utmain.js
@@ -126,25 +144,6 @@ class UTContentManager {
 // Retrieve UT options from storage
 chrome.storage.sync.get(null, (items) => {
   const enabled = items.ut_options.enable
-  const utContentManager = new UTContentManager()
-  if (enabled) {
-    utContentManager.watch()
-  }
+  const utContentManager = new UTContentManager(enabled)
+  utContentManager.start()
 })
-// const untracker = new Untracker()
-// const $links = document.querySelectorAll('a')
-// for (const $link of $links) {
-//   $link.addEventListener('click', function (e) {
-//     const linkUrl = $link.getAttribute('href')
-//     if (untracker.isTrackedURL(linkUrl)) {
-//       e.preventDefault()
-//       const formattedUrl = untracker.untrackURL(linkUrl)
-//       const linkTarget = $link.getAttribute('target')
-//       if (linkTarget === '_blank') {
-//         window.open(formattedUrl)
-//       } else {
-//         window.location.href = formattedUrl
-//       }
-//     }      
-//   })
-// }

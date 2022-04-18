@@ -1,12 +1,15 @@
 import UTQueryManager from './UTQueryManager.js'
 
 export default class UTContentManager {
+  _enabled = false
   _queryManager = null
   _links = []
 
-  constructor () {
+  constructor (enabled = true) {
+    this._enabled = enabled
     this._queryManager = new UTQueryManager()
     this._parseLinks()
+    this._handleLiveUpdates()
   }
 
   _parseLinks () {
@@ -19,6 +22,29 @@ export default class UTContentManager {
           this._onLinkClick(e, $link)
         },
       })
+    }
+  }
+
+  _handleLiveUpdates () {
+    chrome.storage.onChanged.addListener((changes, type) => {
+      if (type === 'sync') {
+        const stgOpts = changes.ut_options
+        // watch for 'enable' option update
+        if (stgOpts && stgOpts.oldValue.enable !== stgOpts.newValue.enable) {
+          this._enabled = stgOpts.newValue.enable
+          this._updateInternalState()
+        }
+      }
+    })
+  }
+
+  _updateInternalState () {
+    for (const link of this._links) {
+      if (this._enabled) {
+        link.$element.addEventListener('click', link.onClick)
+      } else {
+        link.$element.removeEventListener('click', link.onClick)
+      }
     }
   }
 
@@ -36,15 +62,7 @@ export default class UTContentManager {
     }
   }
 
-  watch () {
-    for (const link of this._links) {
-      link.$element.addEventListener('click', link.onClick)
-    }
-  }
-
-  unwatch () {
-    for (const link of this._links) {
-      link.$element.removeEventListener('click', link.onClick)
-    }
+  start () {
+    this._updateInternalState()
   }
 }
