@@ -1,4 +1,4 @@
-class Untracker {
+export default class UTQueryManager {
   _parseUrlQuery (url) {
     const strQuery = url.substring(url.indexOf('?') + 1)
     const objQuery = strQuery.split('&').reduce((params, param) => {

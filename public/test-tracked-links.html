@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untracker Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      letter-spacing: 1px;
+      font-size: 20px;
+    }
+    a {
+    }
+    a:visited {
+      color: rgb(0, 0, 238);
+      text-decoration-color: rgb(0, 0, 238);
+    }
+    .main-wrapper {
+      display: flex;
+      padding-top: 50px;
+    }
+    .main-wrapper .links-wrapper {
+      /* flex: 0 0 50%; */
+      /* text-align: right; */
+    }
+    .main-wrapper .links-wrapper .links-wrapper__container {
+      display: inline-block;
+      text-align: left;
+    }
+    .main-wrapper .links-wrapper .links-wrapper__container div {
+      padding: 50px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="links-wrapper">
+      <div class="links-wrapper__container">
+        <div><a href="">[Reload]</a></div>
+        <div>
+          Google UTM, 1 param (tracked):
+          <a href="https://example.com?utm_campaign=testcampaign" target="_blank">
+            example.com?utm_campaign=testcampaign
+          </a>
+        </div>
+        <br>
+        <div>
+          Google UTM, 2 params (tracked):
+          <a href="https://example.com?utm_campaign=testcampaign&utm_source=testsource" target="_blank">
+            example.com?utm_campaign=testcampaign&utm_source=testsource
+          </a>
+        </div>
+        <br>
+        <div>
+          Facebook fbclid (tracked):
+          <a href="https://example.com?fbclid=abcdef123456" target="_blank">
+            example.com?fbclid=abcdef123456
+          </a>
+        </div>
+        <br>
+        <div>
+          Normal link (untracked):
+          <a href="https://example.com" target="_blank">
+            example.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

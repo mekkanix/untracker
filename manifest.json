@@ -12,7 +12,11 @@
   },
   "action": {
     "default_title": "Untracker",
-    "default_popup": "popup.html"
+    "default_popup": "./dist/popup.html"
+  },
+  "background": {
+    "service_worker": "utbackground.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -20,10 +24,10 @@
         "https://*/*",
         "http://*/*"
       ],
-      "js": [
-        "./Untracker.js",
-        "./utparser.js"
-      ]
+      "js": ["./dist/Untracker.js"]
     }
+  ],
+  "permissions": [
+    "storage"
   ]
 }
