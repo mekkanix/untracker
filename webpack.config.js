@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin')
-// const CopyPlugin = require('copy-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, _) => {
   // CLI args
@@ -17,6 +17,7 @@ module.exports = (env, _) => {
     mode: 'production',
     entry: {
       // Popup
+      // 'popup.html': './src/popup/popup.html',
       'Popup': './src/popup/popup.js',
       'Popup.css': './src/popup/popup.sass',
       // Content scripts
@@ -30,10 +31,10 @@ module.exports = (env, _) => {
     },
     module: {
       rules: [
-        {
-          test: /\.(html)$/,
-           use: ['html-loader'],
-        },
+        // {
+        //   test: /\.(html)$/,
+        //    use: ['html-loader'],
+        // },
         // SASS
         {
           test: /\.sass$/i,
@@ -56,12 +57,17 @@ module.exports = (env, _) => {
       ],
     },
     plugins: [
-      new RemoveEmptyScriptsPlugin(),
-      new HtmlWebpackPlugin({
-        filename: 'popup.html',
-        template: './src/popup/popup.html',
-        minify: minimizeCode,
+      new CopyPlugin({
+        patterns: [
+          './src/popup/popup.html',
+        ],
       }),
+      new RemoveEmptyScriptsPlugin(),
+      // new HtmlWebpackPlugin({
+      //   filename: 'popup.html',
+      //   template: './src/popup/popup.html',
+      //   minify: minimizeCode,
+      // }),
       // new IgnoreEmitPlugin(/(?<=main_css\s*).*?(?=\s*js)/gs),
       new MiniCssExtractPlugin({
         filename: '[name]',

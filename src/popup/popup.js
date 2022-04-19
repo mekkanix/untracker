@@ -31,4 +31,4 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 })
 
-console.log('[Untracker][popup] Ready.')
+console.log('[UT Popup] Ready.')
