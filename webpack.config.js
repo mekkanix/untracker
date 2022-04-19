@@ -1,4 +1,10 @@
 const path = require('path')
+const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin')
+// const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, _) => {
   // CLI args
@@ -10,8 +16,11 @@ module.exports = (env, _) => {
   const config = {
     mode: 'production',
     entry: {
-      Untracker: './src/content/utmain.js',
-      popup: './src/popup/popup.js',
+      // Popup
+      'Popup': './src/popup/popup.js',
+      'Popup.css': './src/popup/popup.sass',
+      // Content scripts
+      'Untracker': './src/content/utmain.js',
     },
     output: {
       filename: '[name].js',
@@ -19,6 +28,45 @@ module.exports = (env, _) => {
       iife: false,
       clean: true,
     },
+    module: {
+      rules: [
+        {
+          test: /\.(html)$/,
+           use: ['html-loader'],
+        },
+        // SASS
+        {
+          test: /\.sass$/i,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'sass-loader',
+          ],
+        },
+        // MEDIA
+        // {
+        //   test: /\.(png|jpg|svg|gif|ico|svg)$/,
+        //   loader: 'file-loader',
+        //   options: {
+        //     publicPath: path.resolve(__dirname, '/dist/'),
+        //     outputPath: './',
+        //     name: '[name].[ext]',
+        //   },
+        // },
+      ],
+    },
+    plugins: [
+      new RemoveEmptyScriptsPlugin(),
+      new HtmlWebpackPlugin({
+        filename: 'popup.html',
+        template: './src/popup/popup.html',
+        minify: minimizeCode,
+      }),
+      // new IgnoreEmitPlugin(/(?<=main_css\s*).*?(?=\s*js)/gs),
+      new MiniCssExtractPlugin({
+        filename: '[name]',
+      }),
+    ],
     optimization: {
       minimize: minimizeCode,
     },
