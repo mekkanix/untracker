@@ -1,7 +1,7 @@
 {
   "name": "Untracker",
   "description": "Remove ad-tracking data on-the-fly while surfing on the Web.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Mekkanix",
   "homepage_url": "https://github.com/mekkanix/untracker",
   "manifest_version": 3,
