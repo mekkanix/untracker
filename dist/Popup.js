@@ -23,11 +23,12 @@ class UTPopupManager {
   }
 
   // Utility methods -------------------------
-  
+
   isUTEnabled () {
     return this._options.enable
   }
 }
+
 ;// CONCATENATED MODULE: ./src/popup/UTOption.js
 class UTOption {
   // _port = null
@@ -36,7 +37,7 @@ class UTOption {
   $element = null
   $label = null
   labels = null
-  
+
   constructor (name, value, $element, $label, labels) {
     this.name = name
     this.value = value
@@ -80,6 +81,7 @@ class UTOption {
     return null
   }
 }
+
 ;// CONCATENATED MODULE: ./src/popup/popup.js
 
 

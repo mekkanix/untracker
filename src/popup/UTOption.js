@@ -5,7 +5,7 @@ export default class UTOption {
   $element = null
   $label = null
   labels = null
-  
+
   constructor (name, value, $element, $label, labels) {
     this.name = name
     this.value = value

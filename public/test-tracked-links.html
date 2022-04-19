@@ -39,30 +39,43 @@
       <div class="links-wrapper__container">
         <div><a href="">[Reload]</a></div>
         <div>
-          Google UTM, 1 param (tracked):
+          Google-tracked UTM, 1 param (tracked):
           <a href="https://example.com?utm_campaign=testcampaign" target="_blank">
             example.com?utm_campaign=testcampaign
           </a>
         </div>
         <br>
         <div>
-          Google UTM, 2 params (tracked):
+          Google-tracked UTM, 2 params (tracked):
           <a href="https://example.com?utm_campaign=testcampaign&utm_source=testsource" target="_blank">
             example.com?utm_campaign=testcampaign&utm_source=testsource
           </a>
         </div>
         <br>
         <div>
-          Facebook fbclid (tracked):
+          Facebook-tracked fbclid (tracked):
           <a href="https://example.com?fbclid=abcdef123456" target="_blank">
             example.com?fbclid=abcdef123456
           </a>
         </div>
         <br>
         <div>
-          Normal link (untracked):
+          Normal (untracked):
           <a href="https://example.com" target="_blank">
             example.com
+          </a>
+        </div>
+        <br>
+        <div>
+          Queried (untracked):
+          <a href="https://example.com?someparam=somevalue" target="_blank">
+            example.com?someparam=somevalue
+          </a>
+        </div>
+        <div>
+          Queried link + Facebook-tracked (tracked):
+          <a href="https://example.com?fbclid=abcdef123456&someparam=somevalue" target="_blank">
+            example.com?fbclid=abcdef123456&someparam=somevalue
           </a>
         </div>
       </div>

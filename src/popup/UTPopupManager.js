@@ -19,7 +19,7 @@ export default class UTPopupManager {
   }
 
   // Utility methods -------------------------
-  
+
   isUTEnabled () {
     return this._options.enable
   }

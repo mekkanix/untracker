@@ -4,11 +4,25 @@ export default class UTContentManager {
   _enabled = false
   _queryManager = null
   _links = []
+  _trackingParams = [
+    // Google
+    'utm_campaign',
+    'utm_source',
+    'utm_medium',
+    'utm_term',
+    'utm_content',
+    // Facebook
+    'fbclid',
+  ]
+  _trackingStats = {
+    queryParams: [],
+  }
 
   constructor (enabled = true) {
     this._enabled = enabled
     this._queryManager = new UTQueryManager()
     this._parseLinks()
+    this._handleLiveStats()
     this._handleLiveUpdates()
   }
 
@@ -18,10 +32,24 @@ export default class UTContentManager {
       this._links.push({
         $element: $link,
         onClick: (e) => {
-          // wrapping handler here because we need one extra argument ($link) 
+          // wrapping handler here because we need one extra argument ($link)
           this._onLinkClick(e, $link)
         },
       })
+    }
+  }
+
+  _handleLiveStats () {
+    this._computeStats()
+  }
+
+  _computeStats () {
+    for (const link of this._links) {
+      const linkUrl = link.$element.getAttribute('href')
+      if (this._queryManager.isTrackedURL(linkUrl)) {
+        const linkQuery = this._queryManager.parseUrlQuery(linkUrl, true)
+        // Add tracking params counter process here...
+      }
     }
   }
 
