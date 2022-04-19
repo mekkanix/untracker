@@ -32,7 +32,7 @@ export default class UTContentManager {
       this._links.push({
         $element: $link,
         onClick: (e) => {
-          // wrapping handler here because we need one extra argument ($link)
+          // wrapping handler required here because we need one extra argument
           this._onLinkClick(e, $link)
         },
       })
@@ -40,16 +40,33 @@ export default class UTContentManager {
   }
 
   _handleLiveStats () {
-    this._computeStats()
+    this._computeTrackingParamsStats()
   }
 
-  _computeStats () {
+  _computeTrackingParamsStats () {
     for (const link of this._links) {
       const linkUrl = link.$element.getAttribute('href')
       if (this._queryManager.isTrackedURL(linkUrl)) {
         const linkQuery = this._queryManager.parseUrlQuery(linkUrl, true)
-        // Add tracking params counter process here...
+        for (const [key, _] of Object.entries(linkQuery)) {
+          this._updateTrackingParamCount(key)
+        }
       }
+    }
+  }
+
+  _updateTrackingParamCount (paramName) {
+    let foundParam = this._trackingStats.queryParams.filter(param => {
+      return param.name === paramName
+    })
+    if (!foundParam.length) {
+      this._trackingStats.queryParams.push({
+        name: paramName,
+        pageCount: 1,
+      })
+    } else {
+      const pageCount = foundParam[0].pageCount
+      foundParam[0].pageCount = pageCount + 1
     }
   }
 
